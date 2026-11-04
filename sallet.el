@@ -883,7 +883,7 @@ customize the matching algorithm, you can extend sallet source
 (defun sallet-imenu ()
   "Run imenu sallet."
   (interactive)
-  (sallet (list sallet-source-imenu)))
+  (sallet (list 'sallet-source-imenu)))
 
 ;; TODO: write sallet for opening files
 

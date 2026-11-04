@@ -186,7 +186,20 @@ The return value is a plist with two keys:
                                              (point) (line-end-position)))))
                     (push (list candidate nil) re))
                   (forward-line 1)
-                  (setq continue (point))))))
+                  (setq continue (point))))
+              ;; The loop reads complete lines only.  Once the process is
+              ;; gone, the text after the last newline is the final
+              ;; candidate and the generator is finished, also when the
+              ;; process wrote nothing or was never started.
+              (when (and continue
+                         (not (process-live-p process))
+                         (not (search-forward "\n" nil t)))
+                (unless (eobp)
+                  (push (list (funcall processor (buffer-substring-no-properties
+                                                  (point) (point-max)))
+                              nil)
+                        re))
+                (setq continue nil))))
           (list :candidates (nreverse re)
                 :finished (not continue))))
       :destructor (lambda ()

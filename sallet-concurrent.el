@@ -697,7 +697,8 @@ POINT defaults to (point)."
    'identity prompt))
 
 (defun csallet-source-find ()
-  (let ((proj-dir (locate-dominating-file default-directory ".git")))
+  (let ((proj-dir (or (locate-dominating-file default-directory ".git")
+                      default-directory)))
     (lambda (prompt canvas)
       (ov-put canvas
               'csallet-header-format

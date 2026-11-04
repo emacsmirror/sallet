@@ -172,7 +172,7 @@ the picked candidate.")
 
 (defun sallet-init-source (source)
   "Initiate the SOURCE."
-  (-when-let (instance (funcall source (symbol-name source)))
+  (-when-let (instance (funcall source))
     (funcall (sallet-source-get-init instance) instance)
     (let ((candidates (sallet-source-get-candidates instance)))
       (cond

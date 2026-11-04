@@ -1,0 +1,53 @@
+# orc, this repo's own configuration.
+#
+# It describes the repo and not a workstation: what must pass for code here, which
+# branch work is cut from, what every review of a node here judges. Where this machine
+# keeps the checkout, how many slots it runs and which agent CLI fills each role are
+# the home's own config.toml.
+#
+# orc set only the branch below, reading it off this checkout. Uncomment what this
+# repo means, and delete the rest.
+
+[repo]
+# The branch a node's work is cut from, rebased onto and merged into, unless the node
+# or an ancestor of it names another.
+target = "master"
+# For a repo where every node needs the same judge: uncommented, it spares every orc
+# add here the --review flag, and a node with its own policy keeps it.
+# review = "agent+human"
+
+# What must pass for code in this repo. A profile lists the commands it runs and is
+# named for what it runs. Setting paths limits it to changes that touch a file its
+# globs match. Each command is its own sh -c, with $ORC_TARGET and $ORC_BASE set.
+# [checks.test]
+# commands = ["make test"]
+
+# Which profiles each role runs, in order. Roles are named for when they run: inner
+# repeatedly while the work is being written, handoff once before the branch is
+# submitted, and merge on the merged tree, before the target branch moves to it. merge
+# may run strictly more than handoff.
+# [roles]
+# inner   = ["test"]
+# handoff = ["test"]
+# merge   = ["test"]
+
+# The criteria every agent review of a node in this repo judges beside the node's own,
+# for the properties no node's acceptance criteria carry. Uncommenting one puts it in
+# front of every review here, which is a deliberate act.
+# [review]
+# criteria = [
+#   "Every comment the change adds is five lines or fewer and states a reason the code cannot show, such as a constraint from outside the file or an alternative that fails. A comment may instead point to where that reasoning is written.",
+#   "Everything the change writes describes what is true now. A rule the change deletes leaves behind neither its text nor a note that it existed.",
+#   "Things that change together are declared in one place, such as a value beside its default or a rule beside its check. The change splits none of them across two places.",
+#   "Every helper, type or pattern the change adds is one the repo did not already have.",
+#   "Every abstraction the change adds has at least two uses. An interface is satisfied by at least two types, and a parameter or a setting takes at least two values.",
+#   "Every import and call the change adds is permitted by the boundaries the repo's own layout documentation draws.",
+#   "Every test the change adds is named for the property it asserts and would fail if that property broke.",
+#   "The change prefers the operation that can only fail: it refuses an unknown value rather than remapping it, and errors on a bound rather than truncating.",
+#   "A document that describes behaviour the change alters says what is true now.",
+# ]
+
+# The changed-line count at which the merge queue files a quality sweep over the range
+# merged since the last one.
+# [sweep]
+# lines = 3000

@@ -84,7 +84,7 @@ and identity action."
   (sorter nil :documentation "Sorter.")
   (init ignore
         :documentation
-    "Arbitrary initialization function.
+        "Arbitrary initialization function.
 
 The function is run in the context of the buffer where sallet was
 invoked and takes one argument, the current source.")
@@ -94,7 +94,7 @@ invoked and takes one argument, the current source.")
   ;; TODO: add support for actions which do not kill the session
   (action (lambda (_source candidate) candidate)
           :documentation
-    "Default action on the candidate when sallet session is finished.
+          "Default action on the candidate when sallet session is finished.
 
 An action is a function of two arguments, the current source and
 the picked candidate.")

@@ -275,8 +275,9 @@ candidates.
 The prompt is split on whitespace, then candidate must
 substring-match each token to pass the test."
   (let ((prompt (sallet-state-get-prompt state))
-        (indices (sallet-make-candidate-indices candidates)))
-    (funcall (sallet-make-tokenized-filter 'sallet-filter-substring) candidates indices prompt)))
+        (indices (sallet-make-candidate-indices candidates))
+        (filter (sallet-make-tokenized-filter 'sallet-filter-substring)))
+    (funcall filter candidates indices prompt)))
 
 (defun sallet-matcher-flx-then-substring (candidates state)
   "Match first token with `flx' and then substring match the rest.
@@ -285,8 +286,9 @@ Take CANDIDATES, which is a vector of candidates from a source
 and a sallet STATE and return a list of indices of matching
 candidates."
   (let ((prompt (sallet-state-get-prompt state))
-        (indices (sallet-make-candidate-indices candidates)))
-    (funcall (sallet-make-tokenized-filter 'sallet-filter-flx-then-substring) candidates indices prompt)))
+        (indices (sallet-make-candidate-indices candidates))
+        (filter (sallet-make-tokenized-filter 'sallet-filter-flx-then-substring)))
+    (funcall filter candidates indices prompt)))
 
 ;; TODO: write a "defmatcher" macro which would automatically define
 ;; prompt and indices variables
